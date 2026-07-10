@@ -1,23 +1,29 @@
+"""
+Adaptive AI Workbench
+Main application entry point.
+"""
+
 from fastapi import FastAPI
 
+from app.api.health import router as health_router
+from app.core.settings import settings
+
 app = FastAPI(
-    title="Adaptive AI Workbench",
+    title=settings.PROJECT_NAME,
     description="Cloud-native adaptive multi-agent AI platform",
-    version="0.1.0",
+    version=settings.VERSION,
 )
 
+app.include_router(health_router)
 
-@app.get("/")
+
+@app.get(
+    "/",
+    tags=["System"]
+)
 def root():
     return {
-        "project": "Adaptive AI Workbench",
+        "project": settings.PROJECT_NAME,
         "status": "Running",
-        "version": "0.1.0"
-    }
-
-
-@app.get("/health")
-def health():
-    return {
-        "status": "healthy"
+        "version": settings.VERSION,
     }
