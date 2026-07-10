@@ -5,11 +5,12 @@ Health check endpoints.
 from fastapi import APIRouter
 
 router = APIRouter(
-    tags=["Health"]
+    prefix="/health",
+    tags=["Health"],
 )
 
 
-@router.get("/health")
+@router.get("")
 def health():
     return {
         "status": "healthy"
