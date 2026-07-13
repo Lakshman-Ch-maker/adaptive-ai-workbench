@@ -3,6 +3,22 @@ __pycache__/
 *.py[codz]
 *$py.class
 
+
+# Environment files
+.env
+**/.env
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# VS Code
+.vscode/
+
+# Logs
+*.log
+
 # C extensions
 *.so
 
@@ -148,6 +164,9 @@ activemq-data/
 *.sage.py
 
 # Environments
+# Keep example environment files
+!.env.example
+!**/.env.example
 .env
 .envrc
 .venv
@@ -216,3 +235,18 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# postgres
+postgres_data/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Docker
+docker-compose.override.yml
+
+# Local database GUI files
+*.db

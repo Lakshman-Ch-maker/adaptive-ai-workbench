@@ -1,21 +1,13 @@
 """
-Custom application exceptions.
+Application-specific exceptions.
 """
 
-from fastapi import HTTPException
+
+class EmailAlreadyExistsError(Exception):
+    """Raised when an email is already registered."""
+    pass
 
 
-class AdaptiveAIException(HTTPException):
-    """
-    Base exception for Adaptive AI Workbench.
-    """
-
-    def __init__(
-        self,
-        status_code: int,
-        detail: str,
-    ):
-        super().__init__(
-            status_code=status_code,
-            detail=detail,
-        )
+class AuthenticationError(Exception):
+    """Raised when authentication fails."""
+    pass
