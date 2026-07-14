@@ -5,6 +5,10 @@ from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.database.base import Base
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from app.models.message import Message
 
 
 class Chat(Base):
@@ -30,4 +34,9 @@ class Chat(Base):
     project = relationship(
         "Project",
         back_populates="chats",
+    )
+    messages = relationship(
+    "Message",
+    back_populates="chat",
+    cascade="all, delete-orphan",
     )
