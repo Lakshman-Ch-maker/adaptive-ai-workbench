@@ -4,12 +4,14 @@ Authentication endpoints.
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from app.schemas.auth import LoginRequest, TokenResponse
+from app.schemas.auth import TokenResponse
 
 from app.database.session import get_db
 from app.repositories.user_repository import UserRepository
 from app.schemas.user import UserCreate, UserResponse
 from app.services.auth_service import AuthService
+from fastapi.security import OAuth2PasswordRequestForm
+
 
 router = APIRouter(
     prefix="/auth",
@@ -34,14 +36,14 @@ def register(
     response_model=TokenResponse,
 )
 def login(
-    credentials: LoginRequest,
+    form_data: OAuth2PasswordRequestForm = Depends(),
     db: Session = Depends(get_db),
 ):
     service = AuthService(UserRepository(db))
 
     token = service.login(
-        credentials.email,
-        credentials.password,
+        form_data.username,
+        form_data.password,
     )
 
     return TokenResponse(

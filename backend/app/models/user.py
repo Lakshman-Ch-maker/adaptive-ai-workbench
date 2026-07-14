@@ -7,12 +7,18 @@ import uuid
 from sqlalchemy import Boolean, DateTime, String, func
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column
-
+from sqlalchemy.orm import relationship
 from app.database.base import Base
 
 
 class User(Base):
     __tablename__ = "users"
+
+    projects = relationship(
+    "Project",
+    back_populates="owner",
+    cascade="all, delete-orphan",
+    )
 
     id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True),
