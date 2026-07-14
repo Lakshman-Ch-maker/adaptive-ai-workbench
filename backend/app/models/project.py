@@ -3,8 +3,12 @@ import uuid
 from sqlalchemy import Boolean, ForeignKey, String
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-
+from sqlalchemy.orm import relationship
 from app.database.base import Base
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from app.models.chat import Chat
 
 
 class Project(Base):
@@ -41,4 +45,10 @@ class Project(Base):
     owner = relationship(
     "User",
     back_populates="projects",
+    )
+
+    chats = relationship(
+    "Chat",
+    back_populates="project",
+    cascade="all, delete-orphan",
     )
