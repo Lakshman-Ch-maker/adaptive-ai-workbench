@@ -18,3 +18,10 @@ class ProjectService:
 
     def list_by_owner(self, owner_id):
         return self.repository.list_by_owner(owner_id)
+    
+    def update(self, project):
+        return self.repository.update(project)
+
+
+    def delete(self, project):
+        self.repository.delete(project)

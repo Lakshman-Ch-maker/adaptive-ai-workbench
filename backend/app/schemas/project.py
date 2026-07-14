@@ -1,6 +1,7 @@
 from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict, Field
+from app.schemas.project_update import ProjectUpdate
 
 
 class ProjectCreate(BaseModel):

@@ -21,3 +21,11 @@ class ProjectRepository:
     def list_by_owner(self, owner_id):
         stmt = select(Project).where(Project.owner_id == owner_id)
         return self.db.scalars(stmt).all()
+    def update(self, project: Project) -> Project:
+        self.db.commit()
+        self.db.refresh(project)
+        return project
+    
+    def delete(self, project: Project) -> None:
+        self.db.delete(project)
+        self.db.commit()
