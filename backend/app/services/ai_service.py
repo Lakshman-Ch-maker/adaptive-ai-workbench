@@ -1,9 +1,9 @@
-from app.core.llm import LLM
+from app.core.openai_client import OpenAIClient
 
 
 class AIService:
     def __init__(self):
-        self.llm = LLM()
+        self.client = OpenAIClient()
 
     def chat(self, message: str) -> str:
-        return self.llm.generate(message)
+        return self.client.chat(message)
