@@ -10,19 +10,32 @@ class OpenAIClient:
             api_key=settings.OPENAI_API_KEY,
         )
 
-    def chat(self, message: str) -> str:
+    def chat(
+        self,
+        message: str,
+        context: list | None = None,
+    ) -> str:
+
+        messages = [
+            {
+                "role": "system",
+                "content": SYSTEM_PROMPT,
+            }
+        ]
+
+        if context:
+            messages.extend(context)
+
+        messages.append(
+            {
+                "role": "user",
+                "content": message,
+            }
+        )
+
         response = self.client.chat.completions.create(
             model="gpt-4.1-mini",
-            messages=[
-                {
-                    "role": "system",
-                    "content": SYSTEM_PROMPT,
-                },
-                {
-                    "role": "user",
-                    "content": message,
-                },
-            ],
+            messages=messages,
         )
 
         return response.choices[0].message.content
