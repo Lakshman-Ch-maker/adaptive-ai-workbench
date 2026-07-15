@@ -1,13 +1,15 @@
 from openai import OpenAI
 
-from app.core.prompts import SYSTEM_PROMPT
+from app.core.prompt_manager import PromptManager
 from app.core.settings import settings
 
 
 class OpenAIClient:
     def __init__(self):
+        self.prompt_manager = PromptManager()
         self.client = OpenAI(
             api_key=settings.OPENAI_API_KEY,
+            
         )
 
     def chat(
@@ -19,7 +21,7 @@ class OpenAIClient:
         messages = [
             {
                 "role": "system",
-                "content": SYSTEM_PROMPT,
+                "content": self.prompt_manager.load("system"),
             }
         ]
 
