@@ -1,16 +1,28 @@
+from openai import OpenAI
+
 from app.core.prompts import SYSTEM_PROMPT
+from app.core.settings import settings
 
 
 class OpenAIClient:
-    """
-    Placeholder OpenAI client.
-
-    This will be replaced with the real OpenAI SDK integration.
-    """
+    def __init__(self):
+        self.client = OpenAI(
+            api_key=settings.OPENAI_API_KEY,
+        )
 
     def chat(self, message: str) -> str:
-        return (
-            f"{SYSTEM_PROMPT}\n\n"
-            f"User: {message}\n"
-            f"Assistant: Placeholder response."
+        response = self.client.chat.completions.create(
+            model="gpt-4.1-mini",
+            messages=[
+                {
+                    "role": "system",
+                    "content": SYSTEM_PROMPT,
+                },
+                {
+                    "role": "user",
+                    "content": message,
+                },
+            ],
         )
+
+        return response.choices[0].message.content
