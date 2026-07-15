@@ -8,6 +8,7 @@ from app.api.project import router as project_router
 from app.api.message import router as message_router
 from app.api.ai import router as ai_router
 from app.api.stream import router as stream_router
+from app.api.document import router as document_router
 
 api_router = APIRouter(prefix="/api/v1")
 
@@ -19,3 +20,4 @@ api_router.include_router(project_router)
 api_router.include_router(message_router)
 api_router.include_router(ai_router)
 api_router.include_router(stream_router)
+api_router.include_router(document_router)

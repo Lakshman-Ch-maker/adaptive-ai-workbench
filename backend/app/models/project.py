@@ -10,6 +10,11 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from app.models.chat import Chat
 
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from app.models.document import Document
+
 
 class Project(Base):
     __tablename__ = "projects"
@@ -49,6 +54,12 @@ class Project(Base):
 
     chats = relationship(
     "Chat",
+    back_populates="project",
+    cascade="all, delete-orphan",
+    )
+
+    documents = relationship(
+    "Document",
     back_populates="project",
     cascade="all, delete-orphan",
     )
